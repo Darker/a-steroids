@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets">
+    <Import Project="godot_native_dependency_no_linker.props" Condition="$(godot_native_dependency_no_linker_imported) == ''" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros">
+    <godot_native_dependency_path>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</godot_native_dependency_path>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalLibraryDirectories>$(godot_native_dependency_path)\godot-cpp\bin</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libgodot-cpp.windows.template_$(Configuration.ToLower()).x86_64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>

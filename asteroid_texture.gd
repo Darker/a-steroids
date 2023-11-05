@@ -8,17 +8,18 @@ var textureIndex = {}
 func _on_asteroid_health_changed():
 	
 	if textureIndex.size() == 0:
-		for child in self.get_children():
+		var clip_polygon = find_child("clip_polygon")
+		for child in clip_polygon.get_children():
 			if child is Sprite2D and child.has_meta("health"):
 				textureIndex[child.get_meta("health")] = child
 	
 	var closest;
 	var closestDist = 1000000000;
 	var myHealth = getHealthPercent() * 100
-	print("Current: ", myHealth)
+	#print("Current: ", myHealth)
 	for health in textureIndex:
 		var dist = abs(myHealth - health);
-		print("  ", textureIndex[health].get_name(),"ideal:", health, "dist:",dist)
+		#print("  ", textureIndex[health].get_name(),"ideal:", health, "dist:",dist)
 		if dist < closestDist:
 			closest = textureIndex[health]
 			closestDist = dist

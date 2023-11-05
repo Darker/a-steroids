@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://d2mujk23d4fjk"]
+
+[ext_resource type="Script" path="res://asteroid_texture.gd" id="1_i80g7"]
+[ext_resource type="Texture2D" uid="uid://b2ihixc5s2bye" path="res://exported_assets/boulder_dmg010.png" id="2_4kmcw"]
+[ext_resource type="Texture2D" uid="uid://cgnqawdf0pqv6" path="res://exported_assets/boulder_dmg020.png" id="3_0eiu2"]
+[ext_resource type="Texture2D" uid="uid://b5xvtgcdcqeos" path="res://exported_assets/boulder_dmg050.png" id="4_lsk5n"]
+[ext_resource type="Texture2D" uid="uid://uh2f745pm75d" path="res://exported_assets/boulder_dmg070.png" id="5_xjwti"]
+[ext_resource type="Texture2D" uid="uid://bfld2kjddf70l" path="res://exported_assets/boulder_dmg090.png" id="6_6qu06"]
+[ext_resource type="Texture2D" uid="uid://b4yn8e1qos736" path="res://exported_assets/boulder1.png" id="7_xsmi2"]
+[ext_resource type="Texture2D" uid="uid://g342k2bbkcjl" path="res://exported_assets/yellow_bullet.png" id="8_s5vjo"]
+
+[node name="asteroid_template" type="ShootableObject"]
+"Max health" = 50.0
+"Enlarge fragments " = false
+position = Vector2(286, 86)
+mass = 1e+06
+freeze = true
+script = ExtResource("1_i80g7")
+
+[node name="clip_polygon" type="Polygon2D" parent="."]
+clip_children = 1
+polygon = PackedVector2Array(46, 3, 41.2279, -12.907, 37, -27, 29.4035, -33.6469, 21, -41, 13, -43, 7, -47, -14, -54, -24.1171, -52.0729, -35, -50, -44, -39, -45, -28, -49, -20, -49, -9, -48, -3, -45, 8, -42.7862, 15.1947, -41, 21, -32.742, 27.8007, -24, 35, -11.7539, 40.5664, -2, 45, 11.9948, 44.4169, 22, 44, 32.2365, 36.1721, 39, 31, 46, 11)
+
+[node name="health_010" type="Sprite2D" parent="clip_polygon"]
+visible = false
+texture = ExtResource("2_4kmcw")
+metadata/health = 10
+
+[node name="health_020" type="Sprite2D" parent="clip_polygon"]
+visible = false
+texture = ExtResource("3_0eiu2")
+metadata/health = 20
+
+[node name="health_050" type="Sprite2D" parent="clip_polygon"]
+visible = false
+texture = ExtResource("4_lsk5n")
+metadata/health = 50
+
+[node name="health_070" type="Sprite2D" parent="clip_polygon"]
+visible = false
+texture = ExtResource("5_xjwti")
+metadata/health = 70
+
+[node name="health_090" type="Sprite2D" parent="clip_polygon"]
+visible = false
+texture = ExtResource("6_6qu06")
+metadata/health = 90
+
+[node name="health_100" type="Sprite2D" parent="clip_polygon"]
+clip_children = 2
+texture = ExtResource("7_xsmi2")
+region_rect = Rect2(33, 19.5, 74, 88)
+metadata/health = 100
+
+[node name="collision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(46, 3, 41.2279, -12.907, 37, -27, 29.4035, -33.6469, 21, -41, 13, -43, 7, -47, -14, -54, -24.1171, -52.0729, -35, -50, -44, -39, -45, -28, -49, -20, -49, -9, -48, -3, -45, 8, -42.7862, 15.1947, -41, 21, -32.742, 27.8007, -24, 35, -11.7539, 40.5664, -2, 45, 11.9948, 44.4169, 22, 44, 32.2365, 36.1721, 39, 31, 46, 11)
+disabled = true
+
+[node name="center_of_mass_indicator" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_s5vjo")
+
+[connection signal="healthChanged" from="." to="." method="_on_asteroid_health_changed"]

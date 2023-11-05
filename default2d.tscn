@@ -1,65 +1,62 @@
-[gd_scene load_steps=16 format=3 uid="uid://duo7xpa2j1755"]
+[gd_scene load_steps=9 format=3 uid="uid://duo7xpa2j1755"]
 
-[ext_resource type="Script" path="res://key_print.gd" id="1_c8xqg"]
 [ext_resource type="Texture2D" uid="uid://d3in6oxd1t8f4" path="res://exported_assets/rocket.png" id="1_o1tc7"]
 [ext_resource type="Texture2D" uid="uid://cc3r5rohhpb5i" path="res://exported_assets/dust.png" id="2_4ufe8"]
 [ext_resource type="Texture2D" uid="uid://c5tndwjxsuakw" path="res://exported_assets/stars_far.png" id="2_diwbt"]
 [ext_resource type="Texture2D" uid="uid://dnyp2ax1x1qlt" path="res://exported_assets/stars.png" id="2_v242v"]
 [ext_resource type="Texture2D" uid="uid://g342k2bbkcjl" path="res://exported_assets/yellow_bullet.png" id="3_brnrf"]
 [ext_resource type="Texture2D" uid="uid://7j6mtxbs12jc" path="res://exported_assets/crosshair1.png" id="4_hdaa7"]
-[ext_resource type="Texture2D" uid="uid://b4yn8e1qos736" path="res://exported_assets/boulder1.png" id="5_rgyso"]
-[ext_resource type="Script" path="res://asteroid_texture.gd" id="8_rb3u7"]
-[ext_resource type="Texture2D" uid="uid://b5xvtgcdcqeos" path="res://exported_assets/boulder_dmg050.png" id="10_wo1u2"]
-[ext_resource type="Texture2D" uid="uid://uh2f745pm75d" path="res://exported_assets/boulder_dmg070.png" id="11_7t6vp"]
-[ext_resource type="Texture2D" uid="uid://bfld2kjddf70l" path="res://exported_assets/boulder_dmg090.png" id="11_e3rgp"]
-[ext_resource type="Texture2D" uid="uid://b2ihixc5s2bye" path="res://exported_assets/boulder_dmg010.png" id="11_olxli"]
-[ext_resource type="Texture2D" uid="uid://cgnqawdf0pqv6" path="res://exported_assets/boulder_dmg020.png" id="13_unlm0"]
+[ext_resource type="PackedScene" uid="uid://d2mujk23d4fjk" path="res://asteroid_template.tscn" id="7_nhv3r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4csgp"]
 radius = 4.1231
 
-[node name="Node2d" type="Node2D"]
-script = ExtResource("1_c8xqg")
+[node name="the_universe" type="GameWorld"]
+"Asteroid cooldown [s]" = 4.0
+"Min spawn dist" = 1200.0
+"Max spawn dist" = 2000.0
 
-[node name="Player" type="Player" parent="."]
-acceleration = 1e+06
-angular_acceleration = 2e+07
-"Shoot cooldown [s]" = 0.6
+[node name="player" type="Player" parent="."]
+"Counterrotation multiplier" = 2.0
+acceleration = 2.5e+06
+angular_acceleration = 3.5e+07
+"Shoot cooldown [s]" = 0.1
 scale = Vector2(0.999818, 0.999818)
 mass = 15000.0
 linear_damp_mode = 1
 
-[node name="CollisionPolygon2d" type="CollisionPolygon2D" parent="Player"]
+[node name="CollisionPolygon2d" type="CollisionPolygon2D" parent="player"]
 polygon = PackedVector2Array(19.0035, 12.0022, 15.0027, -13.0024, 6.00109, -38.0069, -3.00055, -30.0055, -11.002, -18.0033, -25.0046, -19.0035, -18.0033, 6.00109, -22.004, 25.0046, -23.0042, 33.006, 19.0035, 32.0058)
 
-[node name="Camera2d" type="Camera2D" parent="Player"]
+[node name="Camera2d" type="Camera2D" parent="player"]
 
-[node name="Sprite2d" type="Sprite2D" parent="Player"]
+[node name="Sprite2d" type="Sprite2D" parent="player"]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_o1tc7")
 
-[node name="cannon" type="Node2D" parent="Player"]
+[node name="cannon" type="Node2D" parent="player"]
 process_mode = 4
 position = Vector2(-20.0036, -19.0035)
 rotation = -0.113446
 
-[node name="projectile" type="Projectile" parent="Player/cannon"]
+[node name="projectile" type="Projectile" parent="player/cannon"]
+Damage = 10.0
+Speed = 400.0
 visible = false
 position = Vector2(43.159, 9.95063)
 rotation = 0.113446
-scale = Vector2(1.00018, 1.00018)
 max_contacts_reported = 2
 contact_monitor = true
 
-[node name="projectile_sprite" type="Sprite2D" parent="Player/cannon/projectile"]
+[node name="projectile_sprite" type="Sprite2D" parent="player/cannon/projectile"]
 process_mode = 4
 scale = Vector2(0.0999818, 0.0999818)
 texture = ExtResource("3_brnrf")
 
-[node name="CollisionShape2d" type="CollisionShape2D" parent="Player/cannon/projectile"]
+[node name="CollisionShape2d" type="CollisionShape2D" parent="player/cannon/projectile"]
 shape = SubResource("CircleShape2D_4csgp")
 
-[node name="Sprite2d" type="Sprite2D" parent="Player/cannon"]
+[node name="Sprite2d" type="Sprite2D" parent="player/cannon"]
 visible = false
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_hdaa7")
@@ -93,41 +90,4 @@ motion_mirroring = Vector2(2048, 2048)
 texture = ExtResource("2_4ufe8")
 centered = false
 
-[node name="asteroid" type="ShootableObject" parent="."]
-position = Vector2(286, 86)
-mass = 1e+06
-script = ExtResource("8_rb3u7")
-
-[node name="health_100" type="Sprite2D" parent="asteroid"]
-texture = ExtResource("5_rgyso")
-metadata/health = 100
-
-[node name="health_090" type="Sprite2D" parent="asteroid"]
-visible = false
-texture = ExtResource("11_e3rgp")
-metadata/health = 90
-
-[node name="health_070" type="Sprite2D" parent="asteroid"]
-visible = false
-texture = ExtResource("11_7t6vp")
-metadata/health = 70
-
-[node name="health_050" type="Sprite2D" parent="asteroid"]
-visible = false
-texture = ExtResource("10_wo1u2")
-metadata/health = 50
-
-[node name="health_020" type="Sprite2D" parent="asteroid"]
-visible = false
-texture = ExtResource("13_unlm0")
-metadata/health = 20
-
-[node name="health_010" type="Sprite2D" parent="asteroid"]
-visible = false
-texture = ExtResource("11_olxli")
-metadata/health = 10
-
-[node name="CollisionPolygon2d" type="CollisionPolygon2D" parent="asteroid"]
-polygon = PackedVector2Array(46, 3, 37, -27, 21, -41, 13, -43, 7, -47, -14, -54, -35, -50, -44, -39, -45, -28, -49, -20, -49, -9, -48, -3, -45, 8, -41, 21, -2, 45, 22, 44, 39, 31, 46, 11)
-
-[connection signal="healthChanged" from="asteroid" to="asteroid" method="_on_asteroid_health_changed"]
+[node name="asteroid_template" parent="." instance=ExtResource("7_nhv3r")]

@@ -10,19 +10,22 @@
 #include "EditorProperties.h"
 #include "EditorProperty.h"
 #include "Cooldown.h"
+#include "GravityBody2D.h"
 
 namespace godot
 {
-class ShootableObject : public RigidBody2D
+class ShootableObject : public GravityBody2D
 {
 	// Godot structure
 private:
-	GDCLASS(ShootableObject, RigidBody2D);
+	GDCLASS(ShootableObject, GravityBody2D);
 
 	struct Props : EditorProperties
 	{
-		EditorPropertyDouble maxHealth = { "Max health", 100 };
-		Props() : EditorProperties({&maxHealth}) {}
+		EditorPropertyDouble maxHealth{ "Max health", 100 };
+		EditorPropertyBool squareScale{ "Enlarge fragments ", true };
+		EditorPropertyDouble healthMultiplier{ "Fragment HP mult", 1.2 };
+		Props() : EditorProperties({&maxHealth, &squareScale, &healthMultiplier}) {}
 	};
 public:
 	static void _bind_methods();
@@ -59,9 +62,13 @@ protected:
 	double health;
 	double lastHealth;
 	double scaleOverride = 1.0;
+	// this is set to override original collision shape on a fragmented asteroid
+	PackedVector2Array collisionOverride;
 	// after this time, all collision exceptions are removed
 	Cooldown stopIgnoringCollisions = { 0.8 };
 	virtual void handleDeath();
+	void createCircularFragments();
+	void createShardFragments();
 	RandomNumberGenerator gen;
 
 };

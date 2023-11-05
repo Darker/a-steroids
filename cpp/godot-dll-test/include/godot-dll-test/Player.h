@@ -9,38 +9,30 @@
 
 #include "Cooldown.h"
 #include "Movement2D.h"
+#include "GravityBody2D.h"
 #include "EditorProperties.h"
 #include "EditorProperty.h"
-
-template<>
-inline void EditorProperty<Cooldown>::assignFromVariant(const godot::Variant& src, Cooldown& tgt)
-{
-	tgt.setDuration(EditorPropertyDouble::fromVariant(src));
-}
-template<>
-inline Variant EditorProperty<Cooldown>::toVariant(const Cooldown& tgt)
-{
-	return EditorPropertyDouble::fromVariant(tgt.getDuration());
-}
+#include "property_conversions.h"
 
 namespace godot
 {
 
 class InputEventKey;
 
-class Player : public RigidBody2D
+class Player : public GravityBody2D
 {
 
 	// Godot structure
 private:
-	GDCLASS(Player, RigidBody2D);
+	GDCLASS(Player, GravityBody2D);
 
 	struct PlayerProps : EditorProperties
 	{
 		friend class Player;
-		PlayerProps() : EditorProperties({&acceleration, &angularAcceleration, &shootCooldown}) {}
+		PlayerProps() : EditorProperties({&counterRotation, &acceleration, &angularAcceleration, &shootCooldown}) {}
 	private:
 		EditorPropertyDouble acceleration = { "acceleration", 30 };
+		EditorPropertyDouble counterRotation = { "Counterrotation multiplier", 3, EditorPropertyRange{0,4,0.01}};
 		EditorPropertyDouble angularAcceleration = { "angular_acceleration", 2000 };
 		EditorProperty<Cooldown> shootCooldown = { "Shoot cooldown [s]", 0.5 };
 	};
@@ -63,7 +55,7 @@ public:
 
 	// Gameplay variables
 private:
-	Ref<InputEventKey> accelerate;
+	//Ref<InputEventKey> accelerate;
 	PlayerProps props;
 
 	// Gameplay methods

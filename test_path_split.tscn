@@ -1,0 +1,122 @@
+[gd_scene load_steps=9 format=3 uid="uid://n4mr1db8g6qx"]
+
+[ext_resource type="PackedScene" uid="uid://duo7xpa2j1755" path="res://default2d.tscn" id="1_0eccq"]
+[ext_resource type="Texture2D" uid="uid://b2ihixc5s2bye" path="res://exported_assets/boulder_dmg010.png" id="3_4ei0x"]
+[ext_resource type="Texture2D" uid="uid://cgnqawdf0pqv6" path="res://exported_assets/boulder_dmg020.png" id="4_7oqq5"]
+[ext_resource type="Texture2D" uid="uid://b5xvtgcdcqeos" path="res://exported_assets/boulder_dmg050.png" id="5_l3fyj"]
+[ext_resource type="Texture2D" uid="uid://uh2f745pm75d" path="res://exported_assets/boulder_dmg070.png" id="6_jawfk"]
+[ext_resource type="Texture2D" uid="uid://bfld2kjddf70l" path="res://exported_assets/boulder_dmg090.png" id="7_u1ifx"]
+[ext_resource type="Texture2D" uid="uid://b4yn8e1qos736" path="res://exported_assets/boulder1.png" id="8_ihfdl"]
+
+[sub_resource type="World3D" id="World3D_jtfhg"]
+
+[node name="root" type="Window"]
+process_mode = 1
+world_3d = SubResource("World3D_jtfhg")
+audio_listener_enable_2d = true
+audio_listener_enable_3d = true
+physics_object_picking = true
+gui_embed_subwindows = true
+positional_shadow_atlas_size = 4096
+title = "voxel_test"
+position = Vector2i(2274, 73)
+size = Vector2i(1152, 648)
+min_size = Vector2i(64, 64)
+content_scale_size = Vector2i(1152, 648)
+content_scale_aspect = 1
+
+[node name="Node2d" parent="." instance=ExtResource("1_0eccq")]
+
+[node name="_ShootableObject_25" type="ShootableObject" parent="Node2d"]
+"Max health" = 50.0
+"Enlarge fragments " = false
+position = Vector2(283.156, 9.1971)
+mass = 1e+06
+linear_velocity = Vector2(-0.66057, -17.8342)
+
+[node name="clip_polygon" type="Polygon2D" parent="Node2d/_ShootableObject_25"]
+clip_children = 1
+scale = Vector2(0.9, 0.9)
+polygon = PackedVector2Array(46, 3, 37, -27, 21, -41, 13, -43, 7, -47, -14, -54, -35, -50, -44, -39, -45, -28, -14.667, -17.6668, 15.6661, -7.33354)
+
+[node name="health_010" type="Sprite2D" parent="Node2d/_ShootableObject_25/clip_polygon"]
+texture = ExtResource("3_4ei0x")
+metadata/health = 10
+
+[node name="health_020" type="Sprite2D" parent="Node2d/_ShootableObject_25/clip_polygon"]
+visible = false
+texture = ExtResource("4_7oqq5")
+metadata/health = 20
+
+[node name="health_050" type="Sprite2D" parent="Node2d/_ShootableObject_25/clip_polygon"]
+visible = false
+texture = ExtResource("5_l3fyj")
+metadata/health = 50
+
+[node name="health_070" type="Sprite2D" parent="Node2d/_ShootableObject_25/clip_polygon"]
+visible = false
+texture = ExtResource("6_jawfk")
+metadata/health = 70
+
+[node name="health_090" type="Sprite2D" parent="Node2d/_ShootableObject_25/clip_polygon"]
+visible = false
+texture = ExtResource("7_u1ifx")
+metadata/health = 90
+
+[node name="health_100" type="Sprite2D" parent="Node2d/_ShootableObject_25/clip_polygon"]
+visible = false
+clip_children = 2
+texture = ExtResource("8_ihfdl")
+region_rect = Rect2(33, 19.5, 74, 88)
+metadata/health = 100
+
+[node name="collision" type="CollisionPolygon2D" parent="Node2d/_ShootableObject_25"]
+scale = Vector2(0.9, 0.9)
+polygon = PackedVector2Array(46, 3, 37, -27, 21, -41, 13, -43, 7, -47, -14, -54, -35, -50, -44, -39, -45, -28, -14.667, -17.6668, 15.6661, -7.33354)
+
+[node name="_ShootableObject_26" type="ShootableObject" parent="Node2d"]
+"Max health" = 50.0
+"Enlarge fragments " = false
+position = Vector2(255.112, 116.889)
+mass = 1e+06
+linear_velocity = Vector2(-7.17258, 7.17263)
+
+[node name="clip_polygon" type="Polygon2D" parent="Node2d/_ShootableObject_26"]
+clip_children = 1
+scale = Vector2(0.9, 0.9)
+polygon = PackedVector2Array(-49, -20, -49, -9, -48, -3, -45, 8, -41, 21, -24, 35, -2, 45, 22, 44, 39, 31, 46, 11, 14.3337, 0.66677, -17.3327, -9.66646)
+
+[node name="health_010" type="Sprite2D" parent="Node2d/_ShootableObject_26/clip_polygon"]
+texture = ExtResource("3_4ei0x")
+metadata/health = 10
+
+[node name="health_020" type="Sprite2D" parent="Node2d/_ShootableObject_26/clip_polygon"]
+visible = false
+texture = ExtResource("4_7oqq5")
+metadata/health = 20
+
+[node name="health_050" type="Sprite2D" parent="Node2d/_ShootableObject_26/clip_polygon"]
+visible = false
+texture = ExtResource("5_l3fyj")
+metadata/health = 50
+
+[node name="health_070" type="Sprite2D" parent="Node2d/_ShootableObject_26/clip_polygon"]
+visible = false
+texture = ExtResource("6_jawfk")
+metadata/health = 70
+
+[node name="health_090" type="Sprite2D" parent="Node2d/_ShootableObject_26/clip_polygon"]
+visible = false
+texture = ExtResource("7_u1ifx")
+metadata/health = 90
+
+[node name="health_100" type="Sprite2D" parent="Node2d/_ShootableObject_26/clip_polygon"]
+visible = false
+clip_children = 2
+texture = ExtResource("8_ihfdl")
+region_rect = Rect2(33, 19.5, 74, 88)
+metadata/health = 100
+
+[node name="collision" type="CollisionPolygon2D" parent="Node2d/_ShootableObject_26"]
+scale = Vector2(0.9, 0.9)
+polygon = PackedVector2Array(-49, -20, -49, -9, -48, -3, -45, 8, -41, 21, -24, 35, -2, 45, 22, 44, 39, 31, 46, 11, 14.3337, 0.66677, -17.3327, -9.66646)

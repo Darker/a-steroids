@@ -17,7 +17,7 @@ radius = 4.1231
 "Max spawn dist" = 2000.0
 
 [node name="player" type="Player" parent="."]
-"Counterrotation multiplier" = 2.0
+"Counterrotation multiplier" = 1.35
 acceleration = 2.5e+06
 angular_acceleration = 3.5e+07
 "Shoot cooldown [s]" = 0.1
